@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Menor e Maior Palavra</title>
+</head>
+<body>
+    <h2>Digite palavras distintas (deixe vazio e pressione "Adicionar" para encerrar)</h2>
+    <input type="text" id="palavra" placeholder="Digite uma palavra">
+    <button onclick="adicionarPalavra()">Adicionar</button>
+    <ul id="lista"></ul>
+    <p id="resultado"></p>
+
+    <script>
+        let palavras = [];
+
+        function adicionarPalavra() {
+            const input = document.getElementById('palavra');
+            const valor = input.value.trim();
+            if (valor === "") {
+                if (palavras.length === 0) {
+                    document.getElementById('resultado').innerText = "Nenhuma palavra foi digitada.";
+                    return;
+                }
+                let menor = palavras[0];
+                let maior = palavras[0];
+                for (let palavra of palavras) {
+                    if (palavra.length < menor.length) menor = palavra;
+                    if (palavra.length > maior.length) maior = palavra;
+                }
+                document.getElementById('resultado').innerText = 
+                    `Menor palavra: ${menor}\nMaior palavra: ${maior}`;
+                input.disabled = true;
+                return;
+            }
+            if (!palavras.includes(valor)) {
+                palavras.push(valor);
+                atualizarLista();
+            }
+            input.value = '';
+            input.focus();
+        }
+
+        function atualizarLista() {
+            const lista = document.getElementById('lista');
+            lista.innerHTML = '';
+            palavras.forEach((palavra, idx) => {
+                const li = document.createElement('li');
+                li.textContent = palavra;
+                lista.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Contador de "oi"</title>
+</head>
+<body>
+    <h2>Digite palavras (digite "sair" para encerrar)</h2>
+    <input type="text" id="palavra" placeholder="Digite uma palavra">
+    <button onclick="adicionarPalavra()">Adicionar</button>
+    <p id="mensagem"></p>
+    <p id="resultado"></p>
+
+    <script>
+        let contadorOi = 0;
+        let terminou = false;
+
+        function adicionarPalavra() {
+            if (terminou) return;
+            const input = document.getElementById('palavra');
+            const valor = input.value.trim().toLowerCase();
+            if (valor === "") return;
+            if (valor === "sair") {
+                terminou = true;
+                document.getElementById('mensagem').innerText = 'Programa encerrado.';
+                document.getElementById('palavra').disabled = true;
+                return;
+            }
+            if (valor === "oi") {
+                contadorOi++;
+            }
+            document.getElementById('resultado').innerText = `"oi" foi digitado ${contadorOi} vez(es).`;
+            input.value = '';
+            input.focus();
+        }
+    </script>
+</body>
+</html>

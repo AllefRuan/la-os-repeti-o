@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Média Aritmética de N Números</title>
+</head>
+<body>
+    <h2>Calcule a média de vários números (digite 0 para parar)</h2>
+    <input type="number" id="numero" placeholder="Digite um número">
+    <button onclick="adicionarNumero()">Adicionar</button>
+    <button onclick="calcularMedia()">Calcular Média</button>
+    <ul id="lista"></ul>
+    <p id="resultado"></p>
+
+    <script>
+        let numeros = [];
+
+        function adicionarNumero() {
+            const input = document.getElementById('numero');
+            const valor = Number(input.value);
+            if (valor === 0) {
+                input.disabled = true;
+                document.getElementById('resultado').innerText = "Você digitou 0. Clique em 'Calcular Média' para ver o resultado.";
+                return;
+            }
+            numeros.push(valor);
+            atualizarLista();
+            input.value = '';
+            input.focus();
+        }
+
+        function atualizarLista() {
+            const lista = document.getElementById('lista');
+            lista.innerHTML = '';
+            numeros.forEach((num, idx) => {
+                const li = document.createElement('li');
+                li.textContent = `Número ${idx + 1}: ${num}`;
+                lista.appendChild(li);
+            });
+        }
+
+        function calcularMedia() {
+            if (numeros.length === 0) {
+                document.getElementById('resultado').innerText = "Nenhum número foi inserido.";
+                return;
+            }
+            const soma = numeros.reduce((acc, val) => acc + val, 0);
+            const media = soma / numeros.length;
+            document.getElementById('resultado').innerText = "Média: " + media;
+        }
+    </script>
+</body>
+</html>
